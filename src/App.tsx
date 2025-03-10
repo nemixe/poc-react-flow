@@ -1,26 +1,37 @@
-import React, { useCallback } from 'react';
+import React, { useCallback } from "react";
 import ReactFlow, {
   Background,
   Controls,
   MiniMap,
   ReactFlowProvider,
   useReactFlow,
-} from 'reactflow';
-import 'reactflow/dist/style.css';
+} from "reactflow";
+import "reactflow/dist/style.css";
 
-import { useStore } from './store/workflowStore';
-import WorkflowNode from './components/workflow/WorkflowNode';
-import Toolbar from './components/workflow/Toolbar';
-import NodeProperties from './components/workflow/NodeProperties';
+import { useStore } from "./store/workflowStore";
+import WorkflowNode from "./components/workflow/WorkflowNode";
+import UserNode from "./components/workflow/UserNode";
+import Toolbar from "./components/workflow/Toolbar";
+import NodeProperties from "./components/workflow/NodeProperties";
 
 const nodeTypes = {
   workflow: WorkflowNode,
+  user: UserNode,
 };
 
 function Flow() {
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, updateNode, addNode } = useStore();
+  const {
+    nodes,
+    edges,
+    onNodesChange,
+    onEdgesChange,
+    onConnect,
+    updateNode,
+    addNode,
+  } = useStore();
   const [selectedNode, setSelectedNode] = React.useState<string | null>(null);
-  const { project, getNodes, setViewport, zoomIn, zoomOut, fitView } = useReactFlow();
+  const { project, getNodes, setViewport, zoomIn, zoomOut, fitView } =
+    useReactFlow();
 
   const onSave = useCallback(() => {
     const flow = {
@@ -32,7 +43,10 @@ function Flow() {
 
   const onAddNode = useCallback(
     (type: string) => {
-      const position = project({ x: window.innerWidth / 2, y: window.innerHeight / 3 });
+      const position = project({
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 3,
+      });
       addNode(type, position);
     },
     [project, addNode]

@@ -1,18 +1,18 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 import {
-  Connection,
-  Edge,
-  EdgeChange,
-  Node,
-  NodeChange,
+  type Connection,
+  type Edge,
+  type EdgeChange,
+  type Node,
+  type NodeChange,
   addEdge,
-  OnNodesChange,
-  OnEdgesChange,
-  OnConnect,
-  XYPosition,
+  type OnNodesChange,
+  type OnEdgesChange,
+  type OnConnect,
+  type XYPosition,
   applyNodeChanges,
   applyEdgeChanges,
-} from 'reactflow';
+} from "reactflow";
 
 type RFState = {
   nodes: Node[];
@@ -20,7 +20,7 @@ type RFState = {
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
   onConnect: OnConnect;
-  updateNode: (id: string, data: any) => void;
+  updateNode: (id: string, data: Record<string, unknown>) => void;
   addNode: (type: string, position: XYPosition) => void;
 };
 
@@ -44,7 +44,7 @@ export const useStore = create<RFState>((set, get) => ({
       edges: addEdge(connection, get().edges),
     });
   },
-  updateNode: (id: string, data: any) => {
+  updateNode: (id: string, data: Record<string, unknown>) => {
     set({
       nodes: get().nodes.map((node) => {
         if (node.id === id) {
@@ -57,10 +57,16 @@ export const useStore = create<RFState>((set, get) => ({
   addNode: (type: string, position: XYPosition) => {
     const newNode: Node = {
       id: `node-${nodeId++}`,
-      type: 'workflow',
+      type: type === "user" ? "user" : "workflow",
       position,
       data: { type },
     };
+
+    // Set default user for notification nodes
+    if (type === "notification") {
+      newNode.data.userId = "1"; // Default to John Doe
+    }
+
     set({
       nodes: [...get().nodes, newNode],
     });
