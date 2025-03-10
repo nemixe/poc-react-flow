@@ -1,6 +1,14 @@
-import React from 'react';
-import { Button } from '../ui/button';
-import { Save, Plus, Undo, Redo, ZoomIn, ZoomOut, Maximize } from 'lucide-react';
+import React from "react";
+import { Button } from "../ui/button";
+import {
+  Save,
+  Plus,
+  Undo,
+  Redo,
+  ZoomIn,
+  ZoomOut,
+  Maximize,
+} from "lucide-react";
 
 interface ToolbarProps {
   onAddNode: (type: string) => void;
@@ -25,21 +33,45 @@ export function Toolbar({
     <div className="border-b border-gray-200 bg-white p-4">
       <div className="flex items-center space-x-4">
         <div className="space-x-2">
-          <Button onClick={() => onAddNode('start')} variant="outline" size="sm">
+          <Button
+            onClick={() => onAddNode("start")}
+            variant="outline"
+            size="sm"
+          >
             <Plus className="w-4 h-4 mr-2" />
             Start
           </Button>
-          <Button onClick={() => onAddNode('approval')} variant="outline" size="sm">
+          <Button
+            onClick={() => onAddNode("approval")}
+            variant="outline"
+            size="sm"
+          >
             <Plus className="w-4 h-4 mr-2" />
             Approval
           </Button>
-          <Button onClick={() => onAddNode('decision')} variant="outline" size="sm">
+          <Button
+            onClick={() => onAddNode("decision")}
+            variant="outline"
+            size="sm"
+          >
             <Plus className="w-4 h-4 mr-2" />
             Decision
           </Button>
-          <Button onClick={() => onAddNode('end')} variant="outline" size="sm">
+          <Button onClick={() => onAddNode("end")} variant="outline" size="sm">
             <Plus className="w-4 h-4 mr-2" />
             End
+          </Button>
+          <Button onClick={() => onAddNode("user")} variant="outline" size="sm">
+            <Plus className="w-4 h-4 mr-2" />
+            User
+          </Button>
+          <Button
+            onClick={() => onAddNode("notification")}
+            variant="outline"
+            size="sm"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Notification
           </Button>
         </div>
 
